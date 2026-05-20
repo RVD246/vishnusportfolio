@@ -4,5 +4,5 @@
 /css/*
   Cache-Control: no-cache, must-revalidate
 
-/html/*
+/*.html
   Cache-Control: no-cache, must-revalidate

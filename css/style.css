@@ -1026,12 +1026,18 @@ body::before {
   .strip-wrap { margin: 0 -12px; padding-left: 12px; padding-right: 12px; }
   .strip-item-img { width: 240px; height: 135px; }
 
-  /* Lightbox — hide prev/next buttons on mobile (swipe instead) */
+  /* Lightbox — move buttons to bottom so they don't overlap images/video */
   .lightbox-prev,
-  .lightbox-next { display: none; }
-  .lightbox-inner img { max-width: 96vw; max-height: 80vh; }
+  .lightbox-next {
+    top: auto;
+    bottom: 20px;
+    transform: none;
+  }
+  .lightbox-prev { left: calc(50% - 52px); }
+  .lightbox-next { right: calc(50% - 52px); }
+  .lightbox-inner img { max-width: 96vw; max-height: 75vh; }
   .lightbox-inner iframe { width: 96vw !important; }
-  .lightbox-counter { font-size: 10px; bottom: 14px; }
+  .lightbox-counter { font-size: 10px; bottom: 60px; }
 
   /* About */
   .about-wrap { padding: 24px 12px; }

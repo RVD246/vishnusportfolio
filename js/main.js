@@ -139,25 +139,54 @@ function buildMobileMenu() {
   const full  = PROJECTS.filter(p => p.tier === 'full');
   const minor = PROJECTS.filter(p => p.tier === 'minor');
 
-  let html = `
-    <a href="/">Home</a>
-    <a href="/projects">All Projects</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
-    <a href="cv.pdf" target="_blank">CV ↗</a>
-    <div class="nav-mobile-section">Projects</div>`;
+  // Main level
+  const mainHTML = `
+    <div class="mob-main">
+      <a href="/">Home</a>
+      <button class="mob-projects-btn" onclick="mobileMenuShowProjects()">
+        Work <i class="ti ti-chevron-right" style="font-size:12px;float:right;margin-top:2px;"></i>
+      </button>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+      <a href="cv.pdf" target="_blank">CV ↗</a>
+    </div>`;
 
-  full.forEach(p  => { html += `<a href="${projectURL(p.id)}">${p.title}</a>`; });
-  if (minor.length) {
-    html += `<div class="nav-mobile-section">Earlier Work</div>`;
-    minor.forEach(p => { html += `<a href="${projectURL(p.id)}">${p.title}</a>`; });
-  }
+  // Projects sub-level
+  let projHTML = `
+    <div class="mob-projects" style="display:none;">
+      <button class="mob-back-btn" onclick="mobileMenuShowMain()">
+        <i class="ti ti-arrow-left" style="font-size:12px;margin-right:6px;"></i> Back
+      </button>
+      <div class="nav-mobile-section">Professional</div>`;
 
-  menu.innerHTML = html;
+  full.forEach(p => { projHTML += `<a href="${projectURL(p.id)}">${p.title}</a>`; });
+  projHTML += `<div class="nav-mobile-section">Earlier Work</div>`;
+  minor.forEach(p => { projHTML += `<a href="${projectURL(p.id)}">${p.title}</a>`; });
+  projHTML += `</div>`;
+
+  menu.innerHTML = mainHTML + projHTML;
+}
+
+function mobileMenuShowProjects() {
+  document.querySelector('.mob-main').style.display = 'none';
+  document.querySelector('.mob-projects').style.display = 'block';
+}
+
+function mobileMenuShowMain() {
+  document.querySelector('.mob-projects').style.display = 'none';
+  document.querySelector('.mob-main').style.display = 'block';
 }
 
 function toggleMobileMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
+  const menu = document.getElementById('mobileMenu');
+  const isOpen = menu.classList.toggle('open');
+  // Always reset to main level when opening
+  if (isOpen) {
+    const main = menu.querySelector('.mob-main');
+    const proj = menu.querySelector('.mob-projects');
+    if (main) main.style.display = 'block';
+    if (proj) proj.style.display = 'none';
+  }
 }
 
 /* ─── Footer ─────────────────────────────────────────────────── */
@@ -165,7 +194,7 @@ function toggleMobileMenu() {
 function buildFooter() {
   const copy  = document.getElementById('footerCopy');
   const links = document.getElementById('footerLinks');
-  if (copy)  copy.textContent = `${SITE.name} · © 2018`;
+  if (copy)  copy.textContent = `${SITE.name} · © ${new Date().getFullYear()}`;
   if (links) links.innerHTML  = `
     <a href="${SITE.linkedin}" target="_blank" rel="noopener">
       <i class="ti ti-brand-linkedin" aria-hidden="true"></i> LinkedIn

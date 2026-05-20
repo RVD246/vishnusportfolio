@@ -1072,10 +1072,11 @@ body::before {
   .case-label { width: 72px; }
 }
 
-/* Landscape mobile — keep it contained, don't go desktop */
+/* Landscape mobile */
 @media (max-width: 900px) and (orientation: landscape) {
-  .nav-center { display: none; }
+  .nav-center { display: none !important; }
   .nav-mobile-toggle { display: flex !important; }
+
   .featured { height: 180px; }
   .feat-title { font-size: 18px; }
   .feat-keyart { width: 55%; }
@@ -1101,8 +1102,5 @@ body::before {
   .about-split { grid-template-columns: 140px 1fr; gap: 24px; }
   .about-photo { width: 140px; height: 170px; }
 
-  .nav-mobile-menu {
-    max-height: 60vh;
-    overflow-y: auto;
-  }
+  .nav-mobile-menu { max-height: 60vh; }
 }

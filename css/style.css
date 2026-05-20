@@ -212,7 +212,7 @@ body::before {
   transition: max-height 0.25s ease;
 }
 .nav-mobile-menu.open {
-  max-height: 320px;
+  max-height: 280px;
   overflow-y: auto;
   border-bottom: 0.5px solid var(--border);
 }

@@ -206,11 +206,19 @@ body::before {
   left: 0; right: 0;
   background: var(--surface);
   border-bottom: 0.5px solid var(--border);
-  padding: 10px 16px 16px;
+  padding: 0 16px;
   z-index: 90;
-  display: none;
+  max-height: 0;
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  transition: max-height 0.28s ease, padding 0.28s ease;
 }
-.nav-mobile-menu.open { display: block; }
+.nav-mobile-menu.open {
+  max-height: calc(100vh - var(--nav-h));
+  padding: 10px 16px 16px;
+}
 .nav-mobile-menu a,
 .nav-mobile-menu button {
   display: block;
@@ -985,11 +993,6 @@ body::before {
   .nav-mobile-toggle { display: flex !important; }
 
   /* Mobile menu — compact, scrollable projects list */
-  .nav-mobile-menu {
-    max-height: calc(100vh - var(--nav-h));
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
   .nav-mobile-menu a,
   .nav-mobile-menu button { font-size: 13px; padding: 9px 4px; }
   .nav-mobile-section { font-size: 8px; padding: 6px 4px 3px; }

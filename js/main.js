@@ -180,7 +180,6 @@ function mobileMenuShowMain() {
 function toggleMobileMenu() {
   const menu = document.getElementById('mobileMenu');
   const isOpen = menu.classList.toggle('open');
-  // Always reset to main level when opening
   if (isOpen) {
     const main = menu.querySelector('.mob-main');
     const proj = menu.querySelector('.mob-projects');

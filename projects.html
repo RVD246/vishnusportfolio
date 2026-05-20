@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects — Vishnu Raveendran</title>
+  <meta name="description" content="All projects by Vishnu Raveendran, Game Developer.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-name">Vishnu <span>Raveendran</span></a>
+    <div class="nav-center">
+      <div class="nav-dropdown" id="workDropdown">
+        <button class="nav-dropdown-toggle" onclick="toggleDropdown()">
+          Work <i class="ti ti-chevron-down"></i>
+        </button>
+        <div class="nav-dropdown-menu" id="dropdownMenu"></div>
+      </div>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="cv.pdf" target="_blank" class="nav-cv">CV ↗</a>
+      <button class="nav-mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+        <i class="ti ti-menu-2"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-menu" id="mobileMenu"></div>
+
+  <main class="page fade-in">
+
+    <div class="projects-header">
+      <div>
+        <div class="projects-title">All Work</div>
+        <div class="projects-sub">Game Developer · Abu Dhabi, UAE</div>
+      </div>
+      <div class="projects-count" id="projectsCount"></div>
+    </div>
+
+    <div class="filter-bar" id="filterBar"></div>
+
+    <div class="shelf-section" id="fullShelf">
+      <div class="shelf-section-label">Professional</div>
+      <div class="cases-grid" id="fullCases"></div>
+    </div>
+
+    <div class="shelf-section" id="minorShelf">
+      <div class="shelf-section-label">Earlier Work</div>
+      <div class="cases-grid" id="minorCases"></div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-copy" id="footerCopy"></div>
+      <div class="footer-links" id="footerLinks"></div>
+    </footer>
+
+  </main>
+
+  <script src="js/projects.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+# OS — macOS
+.DS_Store
+
+# OS — Windows
+Thumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Editor
+.vscode/
+*.code-workspace
+
+# Temp
+*.tmp
+*.log
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn
+package-lock.json
+.env
+.env.*
+dist/
+.cache/

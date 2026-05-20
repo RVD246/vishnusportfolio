@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Vishnu Raveendran</title>
+  <meta name="description" content="Game Developer based in Abu Dhabi, UAE.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-name">Vishnu <span>Raveendran</span></a>
+    <div class="nav-center">
+      <div class="nav-dropdown" id="workDropdown">
+        <button class="nav-dropdown-toggle" onclick="toggleDropdown()">
+          Work <i class="ti ti-chevron-down"></i>
+        </button>
+        <div class="nav-dropdown-menu" id="dropdownMenu"></div>
+      </div>
+      <a href="about.html" class="nav-link active">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="cv.pdf" target="_blank" class="nav-cv">CV ↗</a>
+      <button class="nav-mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+        <i class="ti ti-menu-2"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-menu" id="mobileMenu"></div>
+
+  <main class="page fade-in">
+    <div class="about-wrap">
+      <div class="about-split">
+        <div>
+          <div class="about-photo" id="aboutPhoto"></div>
+        </div>
+        <div class="about-content">
+          <div class="about-greeting" id="aboutGreeting"></div>
+          <div class="about-name" id="aboutName"></div>
+          <div class="about-role" id="aboutRole"></div>
+          <div class="about-divider"></div>
+          <div class="about-bio" id="aboutBio"></div>
+          <div class="about-skills-label">Skills &amp; Tools</div>
+          <div class="about-skills">
+            <span class="skill-chip">Unreal Engine 5</span>
+            <span class="skill-chip">Unreal Engine 4</span>
+            <span class="skill-chip">Unity</span>
+            <span class="skill-chip">C++</span>
+            <span class="skill-chip">C#</span>
+            <span class="skill-chip">Blueprints</span>
+            <span class="skill-chip">VR Development</span>
+            <span class="skill-chip">PC Development</span>
+            <span class="skill-chip">Multi-platform Shipping</span>
+            <span class="skill-chip">Game Design</span>
+            <span class="skill-chip">Level Design</span>
+          </div>
+          <div class="about-links" id="aboutLinks"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-copy" id="footerCopy"></div>
+      <div class="footer-links" id="footerLinks"></div>
+    </footer>
+  </main>
+
+  <script src="js/projects.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

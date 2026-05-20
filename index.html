@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vishnu Raveendran — Game Developer</title>
+  <meta name="description" content="Game Developer based in Abu Dhabi, UAE. 5+ years shipping commercial VR and PC titles.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-name">Vishnu <span>Raveendran</span></a>
+    <div class="nav-center">
+      <div class="nav-dropdown" id="workDropdown">
+        <button class="nav-dropdown-toggle" onclick="toggleDropdown()">
+          Work <i class="ti ti-chevron-down"></i>
+        </button>
+        <div class="nav-dropdown-menu" id="dropdownMenu"></div>
+      </div>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a href="cv.pdf" target="_blank" class="nav-cv">CV ↗</a>
+      <button class="nav-mobile-toggle" onclick="toggleMobileMenu()" aria-label="Menu">
+        <i class="ti ti-menu-2"></i>
+      </button>
+    </div>
+  </nav>
+
+  <div class="nav-mobile-menu" id="mobileMenu"></div>
+
+  <main class="page fade-in">
+
+    <div class="featured-wrap">
+      <div class="featured" id="featured"></div>
+    </div>
+
+    <div class="drift-wrap" id="driftWrap" onclick="window.location.href='projects.html'">
+      <div class="drift-track" id="driftTrack"></div>
+      <div class="drift-overlay">
+        <div class="drift-btn">View All Projects →</div>
+        <div class="drift-count" id="driftCount"></div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-copy" id="footerCopy"></div>
+      <div class="footer-links" id="footerLinks"></div>
+    </footer>
+
+  </main>
+
+  <div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+    <button class="lightbox-close" onclick="closeLightbox()"><i class="ti ti-x"></i></button>
+    <button class="lightbox-prev" onclick="lightboxNav(-1)"><i class="ti ti-chevron-left"></i></button>
+    <div class="lightbox-inner" id="lightboxInner"></div>
+    <button class="lightbox-next" onclick="lightboxNav(1)"><i class="ti ti-chevron-right"></i></button>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+  </div>
+
+  <script src="js/projects.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

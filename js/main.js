@@ -142,13 +142,13 @@ function buildMobileMenu() {
   // Main level
   const mainHTML = `
     <div class="mob-main">
-      <a href="/">Home</a>
+      <a href="/" onclick="closeMobileMenu()">Home</a>
       <button class="mob-projects-btn" onclick="mobileMenuShowProjects()">
         Work <i class="ti ti-chevron-right" style="font-size:12px;float:right;margin-top:2px;"></i>
       </button>
-      <a href="/about">About</a>
-      <a href="/contact">Contact</a>
-      <a href="cv.pdf" target="_blank">CV ↗</a>
+      <a href="/about" onclick="closeMobileMenu()">About</a>
+      <a href="/contact" onclick="closeMobileMenu()">Contact</a>
+      <a href="cv.pdf" target="_blank" onclick="closeMobileMenu()">CV ↗</a>
     </div>`;
 
   // Projects sub-level
@@ -159,9 +159,9 @@ function buildMobileMenu() {
       </button>
       <div class="nav-mobile-section">Professional</div>`;
 
-  full.forEach(p => { projHTML += `<a href="${projectURL(p.id)}">${p.title}</a>`; });
+  full.forEach(p => { projHTML += `<a href="${projectURL(p.id)}" onclick="closeMobileMenu()">${p.title}</a>`; });
   projHTML += `<div class="nav-mobile-section">Earlier Work</div>`;
-  minor.forEach(p => { projHTML += `<a href="${projectURL(p.id)}">${p.title}</a>`; });
+  minor.forEach(p => { projHTML += `<a href="${projectURL(p.id)}" onclick="closeMobileMenu()">${p.title}</a>`; });
   projHTML += `</div>`;
 
   menu.innerHTML = mainHTML + projHTML;
@@ -177,9 +177,16 @@ function mobileMenuShowMain() {
   document.querySelector('.mob-main').style.display = 'block';
 }
 
+function closeMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 function toggleMobileMenu() {
   const menu = document.getElementById('mobileMenu');
   const isOpen = menu.classList.toggle('open');
+  document.body.style.overflow = isOpen ? 'hidden' : '';
   if (isOpen) {
     const main = menu.querySelector('.mob-main');
     const proj = menu.querySelector('.mob-projects');

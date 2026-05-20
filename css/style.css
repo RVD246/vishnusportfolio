@@ -210,13 +210,13 @@ body::before {
   z-index: 90;
   max-height: 0;
   overflow: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
   transition: max-height 0.28s ease, padding 0.28s ease;
 }
 .nav-mobile-menu.open {
   max-height: calc(100vh - var(--nav-h));
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
   padding: 10px 16px 16px;
 }
 .nav-mobile-menu a,

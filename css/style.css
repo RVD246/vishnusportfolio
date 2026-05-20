@@ -373,6 +373,10 @@ body::before {
   padding: 4px 10px;
   font-size: 10px; color: var(--accent);
   z-index: 2;
+  max-width: calc(100% - 36px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .feat-view {
@@ -1074,8 +1078,10 @@ body::before {
 
 /* Landscape mobile */
 @media (max-width: 900px) and (orientation: landscape) {
-  .nav-center { display: none !important; }
-  .nav-mobile-toggle { display: flex !important; }
+  .nav-center { display: flex !important; }
+  .nav-mobile-toggle { display: none !important; }
+  .nav-name { font-size: 12px; }
+  .nav-mobile-menu { display: none !important; }
 
   .featured { height: 180px; }
   .feat-title { font-size: 18px; }

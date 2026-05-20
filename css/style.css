@@ -206,27 +206,22 @@ body::before {
   left: 0; right: 0;
   background: var(--surface);
   border-bottom: 0.5px solid var(--border);
-  padding: 0 16px;
   z-index: 90;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.28s ease, padding 0.28s ease;
+  transition: max-height 0.25s ease;
 }
 .nav-mobile-menu.open {
   max-height: calc(100vh - var(--nav-h));
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain;
-  padding: 10px 16px 16px;
 }
 .nav-mobile-menu a,
 .nav-mobile-menu button {
   display: block;
   width: 100%;
   text-align: left;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-muted);
-  padding: 10px 4px;
+  padding: 14px 16px;
   border-bottom: 0.5px solid var(--border);
   background: none;
   border-left: none; border-right: none; border-top: none;
@@ -236,16 +231,16 @@ body::before {
 .nav-mobile-menu a:last-child { border-bottom: none; }
 .nav-mobile-menu a:hover { color: var(--text-primary); }
 
-.mob-back-btn {
-  color: var(--accent) !important;
-  font-weight: 500;
+.mob-back-btn { color: var(--accent) !important; font-weight: 500; }
+.mob-projects-btn { display: flex !important; align-items: center; justify-content: space-between; }
+
+.nav-mobile-section {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 8px 16px 4px;
 }
-.mob-projects-btn {
-  display: flex !important;
-  align-items: center;
-  justify-content: space-between;
-}
-.mob-projects-btn:hover { color: var(--text-primary) !important; }
 .nav-mobile-section {
   font-size: 9px;
   letter-spacing: 2px;
@@ -992,11 +987,6 @@ body::before {
   .nav-center { display: none; }
   .nav-mobile-toggle { display: flex !important; }
 
-  /* Mobile menu — compact, scrollable projects list */
-  .nav-mobile-menu a,
-  .nav-mobile-menu button { font-size: 13px; padding: 9px 4px; }
-  .nav-mobile-section { font-size: 8px; padding: 6px 4px 3px; }
-
   /* Homepage */
   .featured-wrap { padding: 12px 12px 0; }
   .featured { height: 220px; }
@@ -1082,6 +1072,8 @@ body::before {
 
 /* Landscape mobile — keep it contained, don't go desktop */
 @media (max-width: 900px) and (orientation: landscape) {
+  .nav-center { display: none; }
+  .nav-mobile-toggle { display: flex !important; }
   .featured { height: 180px; }
   .feat-title { font-size: 18px; }
   .feat-keyart { width: 55%; }

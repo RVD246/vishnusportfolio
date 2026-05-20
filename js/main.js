@@ -165,7 +165,7 @@ function toggleMobileMenu() {
 function buildFooter() {
   const copy  = document.getElementById('footerCopy');
   const links = document.getElementById('footerLinks');
-  if (copy)  copy.textContent = `${SITE.name} · © ${new Date().getFullYear()}`;
+  if (copy)  copy.textContent = `${SITE.name} · © 2018`;
   if (links) links.innerHTML  = `
     <a href="${SITE.linkedin}" target="_blank" rel="noopener">
       <i class="ti ti-brand-linkedin" aria-hidden="true"></i> LinkedIn

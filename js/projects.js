@@ -319,6 +319,6 @@ const SITE = {
   location: "Abu Dhabi, UAE",
   email:    "vishnuraveendran246@gmail.com",
   linkedin: "https://www.linkedin.com/in/vishnu-raveendran/",
-  cv:       "cv.pdf",
+  formspree: "https://formspree.io/f/xjgzgnwz",
   bio: `നമസ്കാരം, नमस्ते, أهلاً, سلام!\n\nBased in Abu Dhabi, UAE, I have been a game developer for the past half decade. I helped ship the first PSVR2 game from the Middle East — Box To The Beat — alongside a range of VR, PC, and location-based titles.\n\nI have worked on commercial releases, client experiences for the likes of Discovery Channel, architectural VR for major KSA developments, and cultural showcases presented to Abu Dhabi's leadership.\n\nProgramming has been a passion of mine since high school. I work primarily in Unreal Engine 5, with a background in Unity, and I am proficient in C++, C#, and more.\n\nFeel free to browse the work, and get in touch if you'd like to talk.`
 };

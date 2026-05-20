@@ -165,7 +165,7 @@ function toggleMobileMenu() {
 function buildFooter() {
   const copy  = document.getElementById('footerCopy');
   const links = document.getElementById('footerLinks');
-  if (copy)  copy.textContent = `${SITE.name} · © 2018`;
+  if (copy)  copy.textContent = `${SITE.name} · © ${new Date().getFullYear()}`;
   if (links) links.innerHTML  = `
     <a href="${SITE.linkedin}" target="_blank" rel="noopener">
       <i class="ti ti-brand-linkedin" aria-hidden="true"></i> LinkedIn
@@ -584,7 +584,77 @@ function buildContactPage() {
         <div class="contact-option-value">Download PDF</div>
       </div>
       <i class="ti ti-arrow-right contact-option-arrow" aria-hidden="true"></i>
-    </a>`;
+    </a>
+
+    <div class="contact-form-wrap">
+      <form id="contactForm" action="${SITE.formspree}" method="POST">
+        <div class="contact-form-row">
+          <div class="contact-form-field">
+            <label class="contact-form-label">Name</label>
+            <input class="contact-form-input" type="text" name="name" placeholder="Your name" required>
+          </div>
+          <div class="contact-form-field">
+            <label class="contact-form-label">Email</label>
+            <input class="contact-form-input" type="email" name="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+        <div class="contact-form-field">
+          <label class="contact-form-label">Subject</label>
+          <select class="contact-form-input contact-form-select" name="subject">
+            <option value="Hiring">Hiring</option>
+            <option value="Collaboration">Collaboration</option>
+            <option value="General">General</option>
+          </select>
+        </div>
+        <div class="contact-form-field">
+          <label class="contact-form-label">Message</label>
+          <textarea class="contact-form-input contact-form-textarea" name="message" placeholder="What's on your mind?" required></textarea>
+        </div>
+        <button type="submit" class="contact-form-submit" id="contactSubmit">
+          Send Message <i class="ti ti-send" aria-hidden="true"></i>
+        </button>
+        <div class="contact-form-status" id="contactStatus"></div>
+      </form>
+    </div>`;
+
+  // Handle submission via fetch to avoid page redirect
+  const form = document.getElementById('contactForm');
+  const btn  = document.getElementById('contactSubmit');
+  const status = document.getElementById('contactStatus');
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.textContent = '';
+    status.className = 'contact-form-status';
+
+    try {
+      const res = await fetch(SITE.formspree, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { Accept: 'application/json' }
+      });
+
+      if (res.ok) {
+        form.reset();
+        btn.textContent = 'Sent!';
+        status.textContent = 'Message received — I\'ll get back to you soon.';
+        status.classList.add('contact-form-status--ok');
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.innerHTML = 'Send Message <i class="ti ti-send" aria-hidden="true"></i>';
+        }, 3000);
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      btn.disabled = false;
+      btn.innerHTML = 'Send Message <i class="ti ti-send" aria-hidden="true"></i>';
+      status.textContent = 'Something went wrong. Try emailing directly.';
+      status.classList.add('contact-form-status--err');
+    }
+  });
 }
 
 /* ─── Lightbox ───────────────────────────────────────────────── */

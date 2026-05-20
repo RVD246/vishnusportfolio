@@ -6,7 +6,7 @@ let lightboxItems = [];
 let lightboxIndex = 0;
 
 /* ─── Constants ──────────────────────────────────────────────── */
-const IMG_EXTS = ['jpg', 'jpeg', 'png', 'webp'];
+const IMG_EXTS = ['webp', 'jpg'];
 
 /* ─── Utilities ──────────────────────────────────────────────── */
 
@@ -62,17 +62,19 @@ function probeImage(dir, name) {
   });
 }
 
-// Probe ss1, ss2, ss3... stopping after 3 consecutive misses
+// Probe ss1..ss50 all in parallel, return found ones in order
 async function probeScreenshots(dir) {
-  const srcs = [];
-  let n = 1, misses = 0;
-  while (misses < 3 && n <= 100) {
-    const src = await probeImage(dir, `ss${n}`);
-    if (src) { srcs.push(src); misses = 0; }
-    else      { misses++; }
-    n++;
+  const MAX = 50;
+  const promises = [];
+
+  for (let n = 1; n <= MAX; n++) {
+    promises.push(probeImage(dir, `ss${n}`));
   }
-  return srcs;
+
+  const results = await Promise.all(promises);
+
+  // Filter out nulls but preserve order
+  return results.filter(Boolean);
 }
 
 // YouTube helpers

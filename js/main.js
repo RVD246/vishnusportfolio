@@ -11,16 +11,17 @@ const IMG_EXTS = ['jpg', 'jpeg', 'png', 'webp'];
 /* ─── Utilities ──────────────────────────────────────────────── */
 
 function projectURL(id) {
-  return `project.html?id=${id}`;
+  return `project?id=${id}`;
 }
 
 function currentPage() {
-  const p = window.location.pathname.split('/').pop() || 'index.html';
-  if (p === '' || p === 'index.html') return 'home';
-  if (p === 'projects.html')          return 'projects';
-  if (p === 'project.html')           return 'project';
-  if (p === 'about.html')             return 'about';
-  if (p === 'contact.html')           return 'contact';
+  const path = window.location.pathname;
+  const p = path.split('/').pop() || 'index.html';
+  if (p === '' || p === 'index.html' || p === 'index') return 'home';
+  if (p === 'projects.html' || p === 'projects')       return 'projects';
+  if (p === 'project.html'  || p === 'project')        return 'project';
+  if (p === 'about.html'    || p === 'about')          return 'about';
+  if (p === 'contact.html'  || p === 'contact')        return 'contact';
   return 'home';
 }
 
@@ -79,7 +80,7 @@ function youtubeThumbnail(id) {
   return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
 }
 function youtubeEmbed(id) {
-  return `https://www.youtube.com/embed/${id}?autoplay=1&controls=0&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&color=white`;
+  return `https://www.youtube.com/embed/${id}?autoplay=1&controls=1&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&color=white`;
 }
 
 /* ─── Nav dropdown ───────────────────────────────────────────── */
@@ -137,10 +138,10 @@ function buildMobileMenu() {
   const minor = PROJECTS.filter(p => p.tier === 'minor');
 
   let html = `
-    <a href="index.html">Home</a>
-    <a href="projects.html">All Projects</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+    <a href="/">Home</a>
+    <a href="/projects">All Projects</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
     <a href="cv.pdf" target="_blank">CV ↗</a>
     <div class="nav-mobile-section">Projects</div>`;
 

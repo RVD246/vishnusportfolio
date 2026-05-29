@@ -456,8 +456,26 @@ function buildProjectPage() {
     </div>
 
     <div class="project-body">
-      <div class="body-label">About the project</div>
-      <p class="project-desc">${p.description}</p>
+      ${(() => {
+        const d = p.description;
+        if (typeof d === 'object' && d !== null) {
+          let html = '';
+          if (d.about) {
+            html += `<div class="body-label">About the Project</div>
+              <p class="project-desc">${d.about}</p>`;
+          }
+          if (d.contributions) {
+            const paras = d.contributions.split('\n\n').map(para => `<p class="project-desc">${para}</p>`).join('');
+            html += `<div class="body-label">My Contributions</div>${paras}`;
+          }
+          if (d.notable) {
+            const items = d.notable.split(' · ').map(item => `<div class="notable-item"><i class="ti ti-star" aria-hidden="true"></i><span>${item}</span></div>`).join('');
+            html += `<div class="body-label">Notable</div><div class="notable-list">${items}</div>`;
+          }
+          return html;
+        }
+        return `<div class="body-label">About the Project</div><p class="project-desc">${d}</p>`;
+      })()}
 
       <div class="body-label">Screenshots &amp; Media</div>
       <div class="strip-wrap">

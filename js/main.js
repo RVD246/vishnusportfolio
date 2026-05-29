@@ -731,7 +731,7 @@ function buildAboutEvents() {
   const badgesHTML = EVENTS.map((ev, i) => {
     const srcs = IMG_EXTS.map(e => `images/${ev.img}.${e}`);
     return `
-      <div class="ev-badge" onclick="openEventsLightbox(${i})"
+      <div class="ev-badge" onclick="hideEvTooltip(); openEventsLightbox(${i})"
         onmouseenter="showEvTooltip(event,${i})"
         onmouseleave="hideEvTooltip()">
         <img src="${srcs[0]}" alt="${ev.name}" loading="lazy"
@@ -777,6 +777,7 @@ function toggleEvents(btn) {
 }
 
 function showEvTooltip(e, index) {
+  if (window.matchMedia('(hover: none)').matches) return;
   const ev = EVENTS[index];
   const tip = document.getElementById('evGlobalTooltip');
   if (!tip) return;

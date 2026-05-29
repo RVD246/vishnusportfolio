@@ -990,7 +990,7 @@ body::before {
 .ev-lightbox-inner {
   display: flex; align-items: flex-start; gap: 32px;
   max-width: 900px; width: 90vw;
-  max-height: 85vh;
+  max-height: 85vh; overflow-y: auto;
 }
 
 .ev-lb-img-wrap {
@@ -1004,6 +1004,25 @@ body::before {
 .ev-lb-img-wrap:hover {
   transform: perspective(800px) rotateY(0deg) rotateX(0deg);
   box-shadow: 0 24px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+@media (max-width: 600px) {
+  .ev-lightbox-inner {
+    flex-direction: column; align-items: center;
+    width: 92vw; gap: 20px; padding: 16px 0;
+  }
+  .ev-lb-img-wrap {
+    width: 200px;
+    transform: perspective(600px) rotateY(-4deg) rotateX(2deg);
+  }
+  .ev-lb-img-wrap:hover {
+    transform: perspective(600px) rotateY(0deg) rotateX(0deg);
+  }
+  .ev-lb-info { padding-top: 0; text-align: center; align-items: center; }
+  .ev-lb-name { font-size: 17px; }
+  .ev-lightbox-prev { left: 8px; }
+  .ev-lightbox-next { right: 8px; }
+  .ev-lightbox-close { top: 12px; right: 12px; }
 }
 .ev-lb-img-wrap img { width: 100%; height: auto; display: block; object-fit: contain; }
 .ev-lb-counter {

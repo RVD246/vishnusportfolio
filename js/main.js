@@ -462,14 +462,29 @@ function buildProjectPage() {
           let html = '';
           if (d.about) {
             html += `<div class="body-label">About the Project</div>
-              <p class="project-desc">${d.about}</p>`;
+              <p class="project-desc">${d.about}</p>
+              <div class="section-divider"></div>`;
           }
           if (d.contributions) {
-            const paras = d.contributions.split('\n\n').map(para => `<p class="project-desc">${para}</p>`).join('');
-            html += `<div class="body-label">My Contributions</div>${paras}`;
+            const paras = d.contributions.split('\n\n');
+            const cards = paras.map((para, i) => {
+              const techKeywords = ['hardware', 'integration', 'system', 'protocol', 'engine', 'network', 'shader', 'api', 'sdk', 'serial', 'binary', 'pcg', 'procedural', 'ai ', 'physics', 'platform'];
+              const lower = para.toLowerCase();
+              const isTechnical = i > 0 && techKeywords.some(k => lower.includes(k));
+              if (isTechnical) {
+                return `<div class="contrib-card">
+                  <div class="contrib-card-label">Technical</div>
+                  <p>${para}</p>
+                </div>`;
+              }
+              return `<div class="contrib-card"><p>${para}</p></div>`;
+            }).join('');
+            html += `<div class="body-label">My Contributions</div>
+              <div class="contrib-list">${cards}</div>
+              <div class="section-divider"></div>`;
           }
           if (d.notable) {
-            const items = d.notable.split(' · ').map(item => `<div class="notable-item"><i class="ti ti-star" aria-hidden="true"></i><span>${item}</span></div>`).join('');
+            const items = d.notable.split(' · ').map(item => `<div class="notable-item"><i class="ti ti-trophy" aria-hidden="true"></i><span>${item}</span></div>`).join('');
             html += `<div class="body-label">Notable</div><div class="notable-list">${items}</div>`;
           }
           return html;
@@ -477,6 +492,7 @@ function buildProjectPage() {
         return `<div class="body-label">About the Project</div><p class="project-desc">${d}</p>`;
       })()}
 
+      <div class="section-divider"></div>
       <div class="body-label">Screenshots &amp; Media</div>
       <div class="strip-wrap">
         <div class="strip" id="mediaStrip">

@@ -63,6 +63,8 @@
       </div>
     </div>
 
+    <div class="about-events-wrap" id="aboutEvents"></div>
+
     <footer class="footer">
       <div class="footer-copy" id="footerCopy"></div>
       <div class="footer-links" id="footerLinks"></div>
@@ -71,5 +73,12 @@
 
   <script src="js/projects.js"></script>
   <script src="js/main.js"></script>
+
+  <div class="ev-lightbox" id="evLightbox" onclick="closeEvLightboxOutside(event)">
+    <button class="ev-lightbox-close" onclick="closeEvLightbox()"><i class="ti ti-x"></i></button>
+    <button class="ev-lightbox-prev" onclick="evLightboxNav(-1)"><i class="ti ti-chevron-left"></i></button>
+    <div class="ev-lightbox-inner" id="evLightboxInner"></div>
+    <button class="ev-lightbox-next" onclick="evLightboxNav(1)"><i class="ti ti-chevron-right"></i></button>
+  </div>
 </body>
 </html>

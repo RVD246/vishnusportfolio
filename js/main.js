@@ -591,6 +591,266 @@ function buildAboutPage() {
     </a>`;
 }
 
+/* ─── Events attended ────────────────────────────────────────── */
+
+const EVENTS = [
+  {
+    name: "Heritage Gameathon",
+    pass: "Attendee",
+    year: "2026",
+    location: "Abu Dhabi",
+    desc: "AD Gaming x Unity x Abu Dhabi Heritage Authority jam. Built Atlantis of the Sands, placed Runner-Up.",
+    img: "attended/heritage-gameathon-2026"
+  },
+  {
+    name: "Middle East Film & Comic Con",
+    pass: "Exhibitor",
+    year: "April 2025",
+    location: "Abu Dhabi",
+    desc: "Exhibited Shadow Dreams and Glitchcore. 3-day exhibitor at ADNEC.",
+    img: "attended/mefcc-2025"
+  },
+  {
+    name: "Unity U/Day 2025",
+    pass: "Attendee",
+    year: "2025",
+    location: "Abu Dhabi",
+    desc: "Unity x Abu Dhabi Gaming developer conference.",
+    img: "attended/uday-2025"
+  },
+  {
+    name: "Tokyo Game Show 2024",
+    pass: "Exhibitor",
+    year: "Sept 2024",
+    location: "Tokyo",
+    desc: "Exhibited Shadow Dreams under Abu Dhabi Gaming. PlayStation visited the booth. Shown in English, Arabic, and Japanese.",
+    img: "attended/tgs-2024"
+  },
+  {
+    name: "Middle East Film & Comic Con",
+    pass: "Exhibitor",
+    year: "Feb 2024",
+    location: "Abu Dhabi",
+    desc: "Exhibited Box To The Beat and Shadow Dreams. 3-day exhibitor at ADNEC.",
+    img: "attended/mefcc-2024"
+  },
+  {
+    name: "Unity U/Day Abu Dhabi",
+    pass: "Attendee",
+    year: "2024",
+    location: "Abu Dhabi",
+    desc: "Unity x Abu Dhabi Gaming developer conference.",
+    img: "attended/uday-abu-dhabi"
+  },
+  {
+    name: "Sawalef Gaming",
+    pass: "Attendee",
+    year: "2024",
+    location: "Abu Dhabi",
+    desc: "AD Gaming x Epic Games x Unreal Engine developer event.",
+    img: "attended/sawalef-gaming"
+  },
+  {
+    name: "BLAST Premier World Final",
+    pass: "Production AAA",
+    year: "Dec 2023",
+    location: "Abu Dhabi",
+    desc: "$1M CS2 World Final at Etihad Arena. Showcased Box To The Beat at the event.",
+    img: "attended/blast-premier-2023"
+  },
+  {
+    name: "Middle East Film & Comic Con",
+    pass: "Exhibitor",
+    year: "March 2023",
+    location: "Abu Dhabi",
+    desc: "Exhibited Box To The Beat. 3-day exhibitor at ADNEC.",
+    img: "attended/mefcc-2023"
+  },
+  {
+    name: "MENA Gaming & eSports Summit",
+    pass: "Delegate",
+    year: "May 2023",
+    location: "Dubai",
+    desc: "2nd Annual MENA Gaming & eSports Summit delegate.",
+    img: "attended/mena-gaming-summit-2023"
+  },
+  {
+    name: "WN Conference",
+    pass: "Standard Pass",
+    year: "2023",
+    location: "Abu Dhabi",
+    desc: "Global game industry dealmaking event. 1,500+ publishers and investors. Showcased Box To The Beat.",
+    img: "attended/wn-conference-2023"
+  },
+  {
+    name: "Games for Change Summit",
+    pass: "Attendee",
+    year: "2023",
+    location: "Abu Dhabi",
+    desc: "International summit on social impact through gaming. Showcased Box To The Beat at the event.",
+    img: "attended/games-for-change-2023"
+  },
+  {
+    name: "PlayStation Develop",
+    pass: "Develop Path",
+    year: "2023",
+    location: "Dubai",
+    desc: "Sony PlayStation developer conference. Attended the Develop path alongside commercial PSVR2 release.",
+    img: "attended/playstation-develop-2023"
+  },
+  {
+    name: "GITEX Global 2021",
+    pass: "Exhibitor",
+    year: "Oct 2021",
+    location: "Dubai",
+    desc: "World's largest tech event at Dubai World Trade Centre. Showcased Box To The Beat around its launch.",
+    img: "attended/gitex-2021"
+  },
+  {
+    name: "Unity x AD Gaming",
+    pass: "Attendee",
+    year: "2022",
+    location: "Abu Dhabi",
+    desc: "First Unity x Abu Dhabi Gaming developer event held in Abu Dhabi.",
+    img: "attended/unity-adgaming-2022"
+  },
+  {
+    name: "Program Your Idea",
+    pass: "Cycle 3",
+    year: "School",
+    location: "Abu Dhabi",
+    desc: "Injazat x Dept. of Education coding programme. Where it all started — first game ever built. <a href='https://scratch.mit.edu/projects/163267059/' target='_blank' rel='noopener' style='color:var(--accent);'>View on Scratch</a>",
+    img: "attended/program-your-idea"
+  }
+];
+
+function buildAboutEvents() {
+  const wrap = document.getElementById('aboutEvents');
+  if (!wrap) return;
+
+  const badgesHTML = EVENTS.map((ev, i) => {
+    const srcs = IMG_EXTS.map(e => `images/${ev.img}.${e}`);
+    return `
+      <div class="ev-badge" onclick="openEventsLightbox(${i})"
+        onmouseenter="showEvTooltip(event,${i})"
+        onmouseleave="hideEvTooltip()">
+        <img src="${srcs[0]}" alt="${ev.name}" loading="lazy"
+          data-fallbacks='${JSON.stringify(srcs.slice(1))}'
+          onerror="imgFallback(this)">
+        <div class="ev-badge-placeholder" style="display:none">${ev.name}</div>
+      </div>`;
+  }).join('');
+
+  wrap.innerHTML = `
+    <div class="about-events-inner">
+      <div style="height:0.5px; background:var(--border); margin-bottom:28px;"></div>
+      <button class="ev-toggle" onclick="toggleEvents(this)" aria-expanded="false">
+        <div class="ev-toggle-left">
+          <i class="ti ti-ticket" aria-hidden="true"></i>
+          <span class="ev-toggle-label">Events Attended</span>
+          <span class="ev-toggle-count">${EVENTS.length} events</span>
+        </div>
+        <i class="ti ti-chevron-down ev-toggle-arrow" aria-hidden="true"></i>
+      </button>
+      <div class="ev-body" id="evBody">
+        <div class="ev-strip-wrap" id="evStripWrap">
+          <div class="ev-strip">${badgesHTML}</div>
+        </div>
+      </div>
+    </div>`;
+
+  // Create global tooltip element attached to body
+  if (!document.getElementById('evGlobalTooltip')) {
+    const tip = document.createElement('div');
+    tip.id = 'evGlobalTooltip';
+    tip.className = 'ev-tooltip-global';
+    document.body.appendChild(tip);
+  }
+}
+
+function toggleEvents(btn) {
+  const body = document.getElementById('evBody');
+  const arrow = btn.querySelector('.ev-toggle-arrow');
+  const isOpen = body.classList.toggle('open');
+  arrow.classList.toggle('open', isOpen);
+  btn.setAttribute('aria-expanded', isOpen);
+}
+
+function showEvTooltip(e, index) {
+  const ev = EVENTS[index];
+  const tip = document.getElementById('evGlobalTooltip');
+  if (!tip) return;
+  tip.innerHTML = `
+    <span class="ev-tooltip-pass">${ev.pass}</span>
+    <div class="ev-tooltip-name">${ev.name}</div>
+    <div class="ev-tooltip-year">${ev.year} · ${ev.location}</div>
+    <div class="ev-tooltip-desc">${ev.desc}</div>`;
+  tip.style.opacity = '1';
+  tip.style.pointerEvents = ev.desc.includes('<a') ? 'auto' : 'none';
+  positionEvTooltip(e, tip);
+}
+
+function positionEvTooltip(e, tip) {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const tipW = 200;
+  let left = rect.left + rect.width / 2 - tipW / 2 + window.scrollX;
+  let top = rect.top - 10 + window.scrollY;
+  if (left < 8) left = 8;
+  if (left + tipW > window.innerWidth - 8) left = window.innerWidth - tipW - 8;
+  tip.style.left = left + 'px';
+  tip.style.top = top + 'px';
+  tip.style.transform = 'translateY(-100%)';
+}
+
+function hideEvTooltip() {
+  const tip = document.getElementById('evGlobalTooltip');
+  if (tip) tip.style.opacity = '0';
+}
+
+let evLightboxIndex = 0;
+
+function openEventsLightbox(index) {
+  evLightboxIndex = index;
+  renderEvLightbox();
+  document.getElementById('evLightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderEvLightbox() {
+  const inner = document.getElementById('evLightboxInner');
+  if (!inner) return;
+  const ev = EVENTS[evLightboxIndex];
+  const srcs = IMG_EXTS.map(e => `images/${ev.img}.${e}`);
+  inner.innerHTML = `
+    <div class="ev-lb-img-wrap">
+      <img src="${srcs[0]}" alt="${ev.name}"
+        data-fallbacks='${JSON.stringify(srcs.slice(1))}'
+        onerror="imgFallback(this)">
+      <div class="ev-lb-counter">${evLightboxIndex + 1} / ${EVENTS.length}</div>
+    </div>
+    <div class="ev-lb-info">
+      <span class="ev-tooltip-pass">${ev.pass}</span>
+      <div class="ev-lb-name">${ev.name}</div>
+      <div class="ev-lb-year">${ev.year} · ${ev.location}</div>
+      <div class="ev-lb-desc">${ev.desc}</div>
+    </div>`;
+}
+
+function closeEvLightbox() {
+  const lb = document.getElementById('evLightbox');
+  if (lb) lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeEvLightboxOutside(e) {
+  if (e.target === document.getElementById('evLightbox')) closeEvLightbox();
+}
+
+function evLightboxNav(dir) {
+  evLightboxIndex = (evLightboxIndex + dir + EVENTS.length) % EVENTS.length;
+  renderEvLightbox();
+}
+
 /* ─── Contact page ───────────────────────────────────────────── */
 
 function buildContactPage() {
@@ -756,10 +1016,17 @@ function renderLightboxItem() {
 
 document.addEventListener('keydown', e => {
   const lb = document.getElementById('lightbox');
-  if (!lb || !lb.classList.contains('open')) return;
-  if (e.key === 'Escape')     closeLightbox();
-  if (e.key === 'ArrowLeft')  lightboxNav(-1);
-  if (e.key === 'ArrowRight') lightboxNav(1);
+  if (lb && lb.classList.contains('open')) {
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  lightboxNav(-1);
+    if (e.key === 'ArrowRight') lightboxNav(1);
+  }
+  const evLb = document.getElementById('evLightbox');
+  if (evLb && evLb.classList.contains('open')) {
+    if (e.key === 'Escape')     closeEvLightbox();
+    if (e.key === 'ArrowLeft')  evLightboxNav(-1);
+    if (e.key === 'ArrowRight') evLightboxNav(1);
+  }
 });
 
 // Touch swipe for lightbox
@@ -801,7 +1068,7 @@ function init() {
   if      (pg === 'home')     { buildFeatured(); buildDriftStrip(); }
   else if (pg === 'projects') { buildShelf(); }
   else if (pg === 'project')  { buildProjectPage(); }
-  else if (pg === 'about')    { buildAboutPage(); buildFooter(); }
+  else if (pg === 'about')    { buildAboutPage(); buildAboutEvents(); buildFooter(); }
   else if (pg === 'contact')  { buildContactPage(); buildFooter(); }
 }
 

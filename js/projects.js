@@ -137,7 +137,7 @@ const PROJECTS = [
       contributions: "Engaged through Khosouf Studio via Robocom VR, who supplied the games and motion rigs for the park. Worked over approximately 6 months in a QA, playtesting, and consulting capacity in the lead-up to launch. All 10 VR experiences arrived in a non-deliverable state — poor performance, unstable framerates, and critical gameplay issues across the board. Systematically playtested and documented issues across every experience, providing detailed QA feedback and consulting on fixes until each title reached a shippable standard for public launch.\n\nAlso handled capture and editing of trailers for every VR experience featured at the park, as well as the trailer for Robocom VR's Transformers VR game, also shown at the venue. Ocean Explorer VR, also built by our team, was and may still be featured at Pixoul as part of the park's lineup.",
       notable: "Pre-launch QA and consulting across all 10 VR experiences at one of the region's largest gaming venues · Trailer production for all featured park titles and Robocom VR's Transformers VR · Engaged through Robocom VR and Khosouf Studio, 2022"
     },
-    youtube: []
+    youtube: ["G0gz474ZkH4", "Q6wN2Ze3nlU", "LccHh8znuYo", "Nhqjt_M5qkE", "-GObsPVI_SY", "5aiNCdpcuy0", "ojGew1IHKnY", "vCwroMy4keg", "0Hl5B1xFT60", "u33kQYMzvvo", "A30T09whXAY"]
   },
   {
     id: "jeddahcentral",
@@ -201,7 +201,7 @@ const PROJECTS = [
       contributions: "Worked alongside the studio director and a designer on this project. Personally responsible for the ForceSeat motion platform integration and all asteroid and missile shooting gameplay systems. ForceSeat is a professional motion platform SDK used across commercial racing and flight simulation titles, and integrating it required mapping in-game events and forces to the platform's motion API to deliver a physically convincing experience in sync with the VR gameplay. The remaining environment and visual work was handled by the studio director and designer.",
       notable: "Built with full flight simulator chair and ForceSeat haptic platform integration · Private client installation"
     },
-    youtube: ["egUVTvhhYzI"]
+    youtube: ["egUVTvhhYzI", "b3mP3L5wVj4"]
   },
   {
     id: "hopevr",

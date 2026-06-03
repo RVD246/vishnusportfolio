@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap');
 
 /* ─── Variables ─────────────────────────────────────────────── */
 :root {
@@ -13,8 +13,8 @@
   --text-primary:  #F4F4FC;
   --text-muted:    #C0C0D8;
   --text-dim:      #8888A8;
-  --font-display:  'Syne', sans-serif;
-  --font-body:     'DM Sans', sans-serif;
+  --font-display:  'Josefin Sans', sans-serif;
+  --font-body:     'Montserrat', sans-serif;
   --radius:        6px;
   --radius-lg:     10px;
   --nav-h:         58px;

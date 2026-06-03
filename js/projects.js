@@ -80,8 +80,7 @@ const PROJECTS = [
     type: "Shipped",
     genre: "VR · Horror",
     platforms: ["PC VR"],
-    featured: true,
-    featuredOrder: 4,
+    featured: false,
     tier: "full",
     awards: [],
     links: [
@@ -115,6 +114,30 @@ const PROJECTS = [
       notable: "Built under contract for Discovery Channel, showcased across UAE and international locations · Full physical immersion via custom robotic chair, haptics, fans, water spray, and EM lock integration"
     },
     youtube: ["EcC186CG81E", "UpmxBURPKRo", "xGSDPbaH_Uo"]
+  },
+  {
+    id: "pixoul",
+    title: "Pixoul Gaming",
+    engine: "Various",
+    role: "QA Lead · Consultant",
+    type: "Client Work",
+    genre: "VR · Location-Based",
+    platforms: ["PC VR"],
+    featured: true,
+    featuredOrder: 4,
+    tier: "full",
+    awards: [
+      "Pre-launch QA across all 10 VR experiences at one of the region's largest gaming venues"
+    ],
+    links: [
+      { label: "Pixoul", icon: "ti-world", url: "https://pixoulgaming.com" }
+    ],
+    description: {
+      about: "Pixoul Gaming is a large-scale VR and eSports entertainment complex at Al Qana, Abu Dhabi, featuring 10 VR experiences across 5 gaming zones alongside an eSports arena, academy, and broadcasting studio. It opened in November 2022 as one of the region's largest integrated gaming destinations.",
+      contributions: "Engaged through Khosouf Studio via Robocom VR, who supplied the games and motion rigs for the park. Worked over approximately 6 months in a QA, playtesting, and consulting capacity in the lead-up to launch. All 10 VR experiences arrived in a non-deliverable state — poor performance, unstable framerates, and critical gameplay issues across the board. Systematically playtested and documented issues across every experience, providing detailed QA feedback and consulting on fixes until each title reached a shippable standard for public launch.\n\nAlso handled capture and editing of trailers for every VR experience featured at the park, as well as the trailer for Robocom VR's Transformers VR game, also shown at the venue. Ocean Explorer VR, also built by our team, was and may still be featured at Pixoul as part of the park's lineup.",
+      notable: "Pre-launch QA and consulting across all 10 VR experiences at one of the region's largest gaming venues · Trailer production for all featured park titles and Robocom VR's Transformers VR · Engaged through Robocom VR and Khosouf Studio, 2022"
+    },
+    youtube: []
   },
   {
     id: "jeddahcentral",

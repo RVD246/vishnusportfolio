@@ -478,7 +478,10 @@ body::before {
   transition: border-color 0.2s, color 0.2s, background 0.2s;
   font-family: var(--font-body);
 }
-.drift-count { font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; }
+.drift-count {
+  font-size: 10px; color: #fff; letter-spacing: 0.5px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.9), 0 0 12px rgba(0,0,0,0.8);
+}
 
 /* ═══════════════════════════════════════════════════════════════
    PROJECTS PAGE

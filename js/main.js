@@ -577,7 +577,7 @@ function buildAboutPage() {
     const parts = SITE.name.split(' ');
     name.innerHTML = `${parts[0]} <span>${parts.slice(1).join(' ')}</span>`;
   }
-  if (role)  role.textContent  = `${SITE.role} · ${SITE.location}`;
+  if (role)  role.textContent  = SITE.role;
   if (bio)   bio.textContent   = SITE.bio;
   if (links) links.innerHTML   = `
     <a href="${SITE.linkedin}" target="_blank" rel="noopener" class="about-link-btn">

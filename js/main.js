@@ -1030,6 +1030,35 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// Touch swipe for featured carousel
+(function() {
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let featLen = 0;
+
+  document.addEventListener('touchstart', e => {
+    const featured = document.getElementById('featured');
+    if (!featured || !featured.contains(e.target)) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    featLen = featured.querySelectorAll('.feat-slide').length;
+  }, { passive: true });
+
+  document.addEventListener('touchend', e => {
+    const featured = document.getElementById('featured');
+    if (!featured || !featured.contains(e.target) || !featLen) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      const active = featured.querySelector('.feat-dot.active');
+      const dots = Array.from(featured.querySelectorAll('.feat-dot'));
+      const current = dots.indexOf(active);
+      const next = (current + (dx < 0 ? 1 : -1) + featLen) % featLen;
+      if (window.featGoTo) window.featGoTo(next);
+    }
+  }, { passive: true });
+})();
+
 // Touch swipe for lightbox
 (function() {
   let touchStartX = 0;

@@ -380,13 +380,15 @@ body::before {
 .feat-view {
   position: absolute;
   bottom: 28px; right: 26px;
-  font-size: 11px; color: var(--text-primary);
-  border: 0.5px solid rgba(255,255,255,0.15);
+  font-size: 11px; color: #fff;
+  border: 0.5px solid rgba(255,255,255,0.4);
   padding: 8px 18px;
   border-radius: var(--radius);
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(8px);
   z-index: 2;
   transition: border-color 0.2s, background 0.2s, color 0.2s;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
 }
 .feat-view:hover {
   border-color: var(--accent-border);
@@ -396,19 +398,19 @@ body::before {
 
 .feat-dots {
   position: absolute;
-  bottom: 12px; left: 50%;
+  bottom: 14px; left: 50%;
   transform: translateX(-50%);
-  display: flex; gap: 5px;
+  display: flex; gap: 6px;
   z-index: 3;
 }
 .feat-dot {
-  width: 5px; height: 5px;
-  border-radius: 3px;
-  background: rgba(255,255,255,0.18);
+  width: 7px; height: 7px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.25);
   cursor: pointer; border: none; padding: 0;
   transition: background 0.3s, width 0.3s;
 }
-.feat-dot.active { background: var(--accent); width: 20px; }
+.feat-dot.active { background: var(--accent); width: 24px; }
 
 /* Drift strip */
 .drift-wrap {

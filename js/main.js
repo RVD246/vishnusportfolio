@@ -97,7 +97,7 @@ function buildDropdown() {
   let html = `<div class="nav-dropdown-section">Projects</div>`;
   full.forEach(p => {
     const trophy = p.awards.length
-      ? `<i class="ti ti-trophy nav-dropdown-item-trophy" aria-hidden="true"></i>` : '';
+      ? `<i class="ti ${p.awards.some(a => !a.startsWith('[star]')) ? 'ti-trophy' : 'ti-star'} nav-dropdown-item-trophy" aria-hidden="true"></i>` : '';
     html += `
       <a href="${projectURL(p.id)}" class="nav-dropdown-item">
         <span class="nav-dropdown-item-name">${p.title}</span>
@@ -199,9 +199,12 @@ function buildFeatured() {
 
   featured.forEach((p, i) => {
     const trophyHTML = p.awards.length
-      ? `<div class="feat-trophy">
-           <i class="ti ti-trophy" aria-hidden="true"></i> ${p.awards[0]}
-         </div>` : '';
+      ? (() => {
+          const a = p.awards[0];
+          const icon = a.startsWith('[star]') ? 'ti-star' : 'ti-trophy';
+          const text = a.replace(/^\[(trophy|star)\]/, '');
+          return `<div class="feat-trophy"><i class="ti ${icon}" aria-hidden="true"></i> ${text}</div>`;
+        })() : '';
 
     const keySrcs = extSrcs(`images/${p.id}/`, 'keyart', IMG_EXTS);
     const keyartHTML = `
@@ -309,7 +312,7 @@ function buildShelf() {
 
 function caseHTML(p, isMinor) {
   const trophy = p.awards.length
-    ? `<div class="case-trophy"><i class="ti ti-trophy" aria-hidden="true"></i></div>` : '';
+    ? `<div class="case-trophy"><i class="ti ${p.awards.some(a => !a.startsWith('[star]')) ? 'ti-trophy' : 'ti-star'}" aria-hidden="true"></i></div>` : '';
 
   const srcs = [
     ...extSrcs(`images/${p.id}/`, 'cover',  IMG_EXTS),
@@ -406,13 +409,16 @@ function buildProjectPage() {
 
   const awardsHTML = p.awards.length
     ? `<div class="project-awards">
-        ${p.awards.map(a => `
-          <div class="award-row">
+        ${p.awards.map(a => {
+          const icon = a.startsWith('[star]') ? 'ti-star' : 'ti-trophy';
+          const text = a.replace(/^\[(trophy|star)\]/, '');
+          return `<div class="award-row">
             <div class="award-icon">
-              <i class="ti ti-trophy" aria-hidden="true"></i>
+              <i class="ti ${icon}" aria-hidden="true"></i>
             </div>
-            <div class="award-text">${a}</div>
-          </div>`).join('')}
+            <div class="award-text">${text}</div>
+          </div>`;
+        }).join('')}
        </div>` : '';
 
   const linksHTML = p.links.length
@@ -484,7 +490,13 @@ function buildProjectPage() {
               <div class="section-divider"></div>`;
           }
           if (d.notable) {
-            const items = d.notable.split(' · ').map(item => `<div class="notable-item"><i class="ti ti-trophy" aria-hidden="true"></i><span>${item}</span></div>`).join('');
+            const items = d.notable.split(' · ').map(item => {
+              let icon = 'ti-star';
+              let text = item;
+              if (item.startsWith('[trophy]')) { icon = 'ti-trophy'; text = item.slice(8); }
+              else if (item.startsWith('[star]')) { icon = 'ti-star'; text = item.slice(6); }
+              return `<div class="notable-item"><i class="ti ${icon}" aria-hidden="true"></i><span>${text}</span></div>`;
+            }).join('');
             html += `<div class="body-label">Notable</div><div class="notable-list">${items}</div>`;
           }
           return html;

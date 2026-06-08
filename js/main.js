@@ -298,8 +298,8 @@ function buildShelf() {
   const full  = PROJECTS.filter(p => p.tier === 'full');
   const minor = PROJECTS.filter(p => p.tier === 'minor');
 
-  fullCases.innerHTML  = full.map(p  => caseHTML(p, false)).join('');
-  if (minorCases) minorCases.innerHTML = minor.map(p => caseHTML(p, true)).join('');
+  fullCases.innerHTML  = full.map((p, i)  => caseHTML(p, false, i + 1)).join('');
+  if (minorCases) minorCases.innerHTML = minor.map((p, i) => caseHTML(p, true, i + 1)).join('');
 
   if (filterBar) {
     const filters = ['All', 'VR', 'PC', 'Shipped', 'In Development', 'Jam', 'Client'];
@@ -310,9 +310,11 @@ function buildShelf() {
   }
 }
 
-function caseHTML(p, isMinor) {
+function caseHTML(p, isMinor, index) {
   const trophy = p.awards.length
     ? `<div class="case-trophy"><i class="ti ${p.awards.some(a => !a.startsWith('[star]')) ? 'ti-trophy' : 'ti-star'}" aria-hidden="true"></i></div>` : '';
+  const numStr = index ? String(index).padStart(2, '0') : '';
+  const numHTML = numStr ? `<div class="case-num">${numStr}</div>` : '';
 
   const srcs = [
     ...extSrcs(`images/${p.id}/`, 'cover',  IMG_EXTS),
@@ -346,7 +348,10 @@ function caseHTML(p, isMinor) {
           ${trophy}
         </div>
       </div>
-      <div class="case-label">${p.title}</div>
+      <div class="case-label">
+        ${numHTML}
+        <span>${p.title}</span>
+      </div>
     </a>`;
 }
 
@@ -489,6 +494,16 @@ function buildProjectPage() {
               <div class="contrib-list">${cards}</div>
               <div class="section-divider"></div>`;
           }
+          if (d.problem) {
+            html += `<div class="body-label">The Problem</div>
+              <div class="contrib-card"><p class="project-desc">${d.problem}</p></div>
+              <div class="section-divider"></div>`;
+          }
+          if (d.solution) {
+            html += `<div class="body-label">How I Solved It</div>
+              <div class="contrib-card"><p class="project-desc">${d.solution}</p></div>
+              <div class="section-divider"></div>`;
+          }
           if (d.notable) {
             const items = d.notable.split(' · ').map(item => {
               let icon = 'ti-star';
@@ -601,6 +616,21 @@ function buildAboutPage() {
     <a href="cv.pdf" target="_blank" class="about-link-btn">
       <i class="ti ti-file-cv" aria-hidden="true"></i> Download CV
     </a>`;
+}
+
+/* ─── About stats ────────────────────────────────────────────── */
+
+function buildAboutStats() {
+  const wrap = document.getElementById('aboutStats');
+  if (!wrap || !SITE.stats) return;
+  wrap.innerHTML = `
+    <div class="about-stats">
+      ${SITE.stats.map(s => `
+        <div class="stat-item">
+          <div class="stat-value">${s.value}</div>
+          <div class="stat-label">${s.label}</div>
+        </div>`).join('')}
+    </div>`;
 }
 
 /* ─── Events attended ────────────────────────────────────────── */
@@ -1110,7 +1140,7 @@ function init() {
   if      (pg === 'home')     { buildFeatured(); buildDriftStrip(); }
   else if (pg === 'projects') { buildShelf(); }
   else if (pg === 'project')  { buildProjectPage(); }
-  else if (pg === 'about')    { buildAboutPage(); buildAboutEvents(); buildFooter(); }
+  else if (pg === 'about')    { buildAboutPage(); buildAboutStats(); buildAboutEvents(); buildFooter(); }
   else if (pg === 'contact')  { buildContactPage(); buildFooter(); }
 }
 

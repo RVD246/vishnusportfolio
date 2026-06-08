@@ -5,14 +5,15 @@
   --bg:            #000000;
   --surface:       #0D0D0D;
   --card:          #111111;
-  --border:        rgba(255,255,255,0.06);
-  --border-hover:  rgba(245,196,0,0.4);
+  --border:        rgba(255,255,255,0.10);
+  --border-hover:  rgba(245,196,0,0.5);
+  --border-hard:   1px solid rgba(255,255,255,0.12);
   --accent:        #F5C400;
   --accent-dim:    rgba(245,196,0,0.08);
   --accent-border: rgba(245,196,0,0.25);
   --text-primary:  #FFFFFF;
   --text-muted:    #AAAAAA;
-  --text-dim:      #9c9c9c;
+  --text-dim:      #777777;
   --font-display:  'Josefin Sans', sans-serif;
   --font-body:     'Montserrat', sans-serif;
   --radius:        6px;
@@ -1369,3 +1370,200 @@ body::before {
 
   .nav-mobile-menu { max-height: 60vh; }
 }
+
+/* ─── Scroll reveal ──────────────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.in-view { opacity: 1; transform: none; }
+
+/* ─── XP bars on stats ───────────────────────────────────────── */
+.stat-item.has-bar { padding-bottom: 14px; }
+.stat-bar-wrap { margin-top: 8px; height: 3px; background: var(--border); overflow: hidden; }
+.stat-bar-fill {
+  height: 100%; width: 0;
+  background: var(--accent);
+  transition: width 1.1s cubic-bezier(.2,.8,.2,1);
+}
+
+/* ─── Count-up stats on project page ────────────────────────── */
+.project-stats {
+  display: flex; gap: 0;
+  border: 1px solid var(--border);
+  margin-bottom: 0;
+}
+.project-stat {
+  flex: 1; padding: 14px 20px;
+  border-right: 1px solid var(--border);
+}
+.project-stat:last-child { border-right: none; }
+.project-stat-num {
+  font-family: var(--font-display);
+  font-size: 26px; font-weight: 700;
+  color: var(--accent); line-height: 1;
+  margin-bottom: 4px;
+}
+.project-stat-lbl {
+  font-size: 8px; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--text-dim);
+}
+
+/* ─── Contribution card + prefix ────────────────────────────── */
+.contrib-card-prefix {
+  font-family: var(--font-display);
+  font-size: 11px; color: var(--accent);
+  font-weight: 700; margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+/* ─── Background texture ─────────────────────────────────────── */
+.bg-grid {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.bg-glow {
+  position: fixed; z-index: 0; pointer-events: none;
+  width: 50vw; height: 50vw; border-radius: 50%;
+  filter: blur(130px); opacity: 0.07;
+}
+.bg-glow.a { top: -10vw; right: -10vw; background: var(--accent); }
+.bg-glow.b { bottom: -15vw; left: -12vw; background: var(--accent); opacity: 0.05; }
+.bg-scan {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.012) 0px,
+    rgba(255,255,255,0.012) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+/* ─── end ────────────────────────────────────────────────────── */
+
+
+/* ─── Effect CSS ─────────────────────────────────────────────── */
+
+/* Glitch — RGB split on headings */
+body.fx-glitch .nav-name,
+body.fx-glitch .project-title,
+body.fx-glitch .about-name,
+body.fx-glitch .projects-title,
+body.fx-glitch .feat-title {
+  animation: glitch-text 3s steps(1) infinite;
+}
+@keyframes glitch-text {
+  0%, 88%, 100% { text-shadow: none; }
+  89% { text-shadow: 3px 0 rgba(255,0,80,0.8), -3px 0 rgba(0,255,65,0.8); }
+  91% { text-shadow: -4px 0 rgba(255,0,80,0.8), 4px 0 rgba(0,255,65,0.8); }
+  93% { text-shadow: 2px 0 rgba(255,0,80,0.8), -2px 0 rgba(0,255,65,0.8); }
+}
+
+/* Pulse — accent glow breathes */
+body.fx-pulse .bg-glow.a {
+  animation: fx-pulse-glow 3s ease-in-out infinite;
+}
+body.fx-pulse .bg-glow.b {
+  animation: fx-pulse-glow 3.8s ease-in-out infinite reverse;
+}
+@keyframes fx-pulse-glow {
+  0%, 100% { opacity: 0.05; transform: scale(1); }
+  50% { opacity: 0.18; transform: scale(1.2); }
+}
+
+/* Neon — flicker glow on headings using current accent */
+body.fx-neon .nav-name,
+body.fx-neon .project-title,
+body.fx-neon .about-name,
+body.fx-neon .projects-title,
+body.fx-neon .feat-title {
+  animation: fx-neon-flicker 4s infinite;
+}
+@keyframes fx-neon-flicker {
+  0%, 89%, 100% { text-shadow: 0 0 8px var(--accent), 0 0 22px var(--accent), 0 0 40px var(--accent); }
+  90% { text-shadow: none; }
+  91% { text-shadow: 0 0 8px var(--accent), 0 0 22px var(--accent); }
+  93% { text-shadow: none; }
+}
+
+/* ─── Appearance panel UI ────────────────────────────────────── */
+
+#themePanelBtn {
+  position: fixed; bottom: 24px; right: 24px; z-index: 8000;
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--surface); border: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-dim); font-size: 17px;
+  cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+#themePanelBtn:hover, #themePanelBtn.active {
+  color: var(--accent); border-color: var(--accent-border); background: var(--card);
+}
+
+#themePanel {
+  position: fixed; bottom: 76px; right: 24px; z-index: 8000;
+  width: 240px;
+  background: var(--surface); border: 0.5px solid var(--border);
+  border-radius: var(--radius-lg); padding: 0;
+  opacity: 0; pointer-events: none; transform: translateY(8px);
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+#themePanel.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+.tp-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 14px 16px 10px; border-bottom: 0.5px solid var(--border);
+}
+.tp-title {
+  font-family: var(--font-display); font-size: 10px;
+  letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim);
+}
+.tp-close {
+  width: 24px; height: 24px; display: flex; align-items: center;
+  justify-content: center; color: var(--text-dim); font-size: 13px;
+  border-radius: 4px; transition: color 0.15s;
+}
+.tp-close:hover { color: var(--accent); }
+
+.tp-section-label {
+  font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-dim); padding: 12px 16px 6px;
+}
+
+.tp-accents {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 0 16px 14px;
+}
+.tp-accent {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 2px solid transparent; cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+}
+.tp-accent:hover { transform: scale(1.2); }
+.tp-accent.active { border-color: var(--text-primary); transform: scale(1.15); }
+
+.tp-effects {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 6px; padding: 0 16px 16px;
+}
+.tp-effect {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+  background: var(--card); cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.tp-effect:hover { border-color: var(--accent-border); }
+.tp-effect.active { border-color: var(--accent); background: var(--accent-dim); }
+.tp-effect-icon { font-size: 13px; color: var(--text-dim); transition: color 0.15s; }
+.tp-effect.active .tp-effect-icon { color: var(--accent); }
+.tp-effect-label {
+  font-size: 10px; color: var(--text-muted);
+}
+.tp-effect.active .tp-effect-label { color: var(--accent); }

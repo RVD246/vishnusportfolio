@@ -338,7 +338,7 @@ function caseHTML(p, isMinor, index) {
 
   return `
     <a href="${projectURL(p.id)}"
-       class="case-wrap${isMinor ? ' minor' : ''}"
+       class="case-wrap reveal${isMinor ? ' minor' : ''}"
        data-filter="${filterTags}">
       <div class="case">
         <div class="case-cover">
@@ -466,6 +466,15 @@ function buildProjectPage() {
       </div>
     </div>
 
+    ${p.projectStats ? `
+    <div class="project-stats">
+      ${p.projectStats.map(s => `
+        <div class="project-stat">
+          <div class="project-stat-num count-up" data-count="${s.value.replace(/[^0-9]/g,'') || '0'}" data-suffix="${s.suffix || ''}">${s.value}${s.suffix || ''}</div>
+          <div class="project-stat-lbl">${s.label}</div>
+        </div>`).join('')}
+    </div>` : ''}
+
     <div class="project-body">
       ${(() => {
         const d = p.description;
@@ -483,12 +492,13 @@ function buildProjectPage() {
               const lower = para.toLowerCase();
               const isTechnical = i > 0 && techKeywords.some(k => lower.includes(k));
               if (isTechnical) {
-                return `<div class="contrib-card">
+                return `<div class="contrib-card reveal">
                   <div class="contrib-card-label">Technical</div>
+                  <div class="contrib-card-prefix">+</div>
                   <p>${para}</p>
                 </div>`;
               }
-              return `<div class="contrib-card"><p>${para}</p></div>`;
+              return `<div class="contrib-card reveal"><div class="contrib-card-prefix">+</div><p>${para}</p></div>`;
             }).join('');
             html += `<div class="body-label">My Contributions</div>
               <div class="contrib-list">${cards}</div>
@@ -626,11 +636,13 @@ function buildAboutStats() {
   wrap.innerHTML = `
     <div class="about-stats">
       ${SITE.stats.map(s => `
-        <div class="stat-item">
+        <div class="stat-item${s.bar > 0 ? ' has-bar' : ''}">
           <div class="stat-value">${s.value}</div>
           <div class="stat-label">${s.label}</div>
+          ${s.bar > 0 ? `<div class="stat-bar-wrap"><div class="stat-bar-fill" data-fill="${s.bar}"></div></div>` : ''}
         </div>`).join('')}
     </div>`;
+  initXPBars();
 }
 
 /* ─── Events attended ────────────────────────────────────────── */
@@ -1135,13 +1147,288 @@ function init() {
   buildDropdown();
   buildMobileMenu();
   buildFooter();
+  buildThemePanel();
 
   const pg = currentPage();
   if      (pg === 'home')     { buildFeatured(); buildDriftStrip(); }
   else if (pg === 'projects') { buildShelf(); }
-  else if (pg === 'project')  { buildProjectPage(); }
+  else if (pg === 'project')  { buildProjectPage(); setTimeout(initCountUp, 100); }
   else if (pg === 'about')    { buildAboutPage(); buildAboutStats(); buildAboutEvents(); buildFooter(); }
   else if (pg === 'contact')  { buildContactPage(); buildFooter(); }
+
+  initScrollReveal();
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+/* ─── Scroll reveal ──────────────────────────────────────────── */
+function initScrollReveal() {
+  const els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(e => e.classList.add('in-view'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en, i) => {
+      if (en.isIntersecting) {
+        setTimeout(() => en.target.classList.add('in-view'), i * 60);
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(e => io.observe(e));
+}
+
+/* ─── XP bar animation ───────────────────────────────────────── */
+function initXPBars() {
+  const bars = document.querySelectorAll('.stat-bar-fill[data-fill]');
+  if (!bars.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        en.target.style.width = en.target.dataset.fill + '%';
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  bars.forEach(b => io.observe(b));
+}
+
+/* ─── Count-up numbers ───────────────────────────────────────── */
+function initCountUp() {
+  const nums = document.querySelectorAll('.count-up[data-count]');
+  if (!nums.length) return;
+  const run = (el) => {
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    const dur = 850, start = performance.now();
+    const tick = (now) => {
+      const t = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) { run(en.target); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.5 });
+  nums.forEach(n => io.observe(n));
+}
+
+/* ─── Appearance panel ───────────────────────────────────────── */
+
+const ACCENTS = [
+  { color: '#F5C400', label: 'Gold'   },
+  { color: '#00E5FF', label: 'Cyan'   },
+  { color: '#FF4D8D', label: 'Pink'   },
+  { color: '#D6FF3F', label: 'Acid'   },
+  { color: '#B388FF', label: 'Violet' },
+  { color: '#FF8A3D', label: 'Orange' },
+  { color: '#FF3B3B', label: 'Red'    },
+  { color: '#FFFFFF', label: 'White'  },
+];
+
+const EFFECTS = [
+  { id: 'glitch', label: 'Glitch',  icon: '⚡' },
+  { id: 'matrix', label: 'Matrix',  icon: '⬇' },
+  { id: 'pulse',  label: 'Pulse',   icon: '◉' },
+  { id: 'neon',   label: 'Neon',    icon: '✦' },
+];
+
+const activeEffects = new Set();
+let effectCleanups = {};
+
+const PREFS_KEY = 'vr_prefs';
+
+function savePrefs() {
+  try {
+    localStorage.setItem(PREFS_KEY, JSON.stringify({
+      accent: document.documentElement.style.getPropertyValue('--accent').trim() || '#F5C400',
+      effects: [...activeEffects]
+    }));
+  } catch(e) {}
+}
+
+function loadPrefs() {
+  try {
+    const raw = localStorage.getItem(PREFS_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
+
+function buildThemePanel() {
+  const btn = document.createElement('button');
+  btn.id = 'themePanelBtn';
+  btn.innerHTML = '<i class="ti ti-palette"></i>';
+  btn.setAttribute('aria-label', 'Appearance');
+  document.body.appendChild(btn);
+
+  const panel = document.createElement('div');
+  panel.id = 'themePanel';
+  panel.innerHTML = `
+    <div class="tp-header">
+      <span class="tp-title">// appearance</span>
+      <button class="tp-close" id="tpClose"><i class="ti ti-x"></i></button>
+    </div>
+    <div class="tp-section-label">Accent</div>
+    <div class="tp-accents" id="tpAccents">
+      ${ACCENTS.map(a => `
+        <button class="tp-accent"
+          style="background:${a.color}" data-color="${a.color}"
+          title="${a.label}" aria-label="${a.label}"></button>`).join('')}
+    </div>
+    <div class="tp-section-label">Effects</div>
+    <div class="tp-effects" id="tpEffects">
+      ${EFFECTS.map(e => `
+        <button class="tp-effect" data-effect="${e.id}">
+          <span class="tp-effect-icon">${e.icon}</span>
+          <span class="tp-effect-label">${e.label}</span>
+        </button>`).join('')}
+    </div>`;
+  document.body.appendChild(panel);
+
+  // Restore saved prefs
+  const prefs = loadPrefs();
+  const savedAccent = prefs?.accent || '#F5C400';
+  setAccent(savedAccent);
+  // Mark active swatch
+  document.querySelectorAll('.tp-accent').forEach(b => {
+    b.classList.toggle('active', b.dataset.color.toUpperCase() === savedAccent.toUpperCase());
+  });
+  // Restore effects
+  if (prefs?.effects) {
+    prefs.effects.forEach(id => {
+      activeEffects.add(id);
+      effectCleanups[id] = startEffect(id);
+      const btn = document.querySelector(`.tp-effect[data-effect="${id}"]`);
+      if (btn) btn.classList.add('active');
+    });
+  }
+
+  let open = false;
+  btn.addEventListener('click', e => { e.stopPropagation(); open = !open; panel.classList.toggle('open', open); btn.classList.toggle('active', open); });
+  document.getElementById('tpClose').addEventListener('click', () => { open = false; panel.classList.remove('open'); btn.classList.remove('active'); });
+  document.addEventListener('click', e => { if (open && !panel.contains(e.target) && e.target !== btn) { open = false; panel.classList.remove('open'); btn.classList.remove('active'); } });
+
+  document.getElementById('tpAccents').addEventListener('click', e => {
+    const ab = e.target.closest('.tp-accent');
+    if (!ab) return;
+    document.querySelectorAll('.tp-accent').forEach(b => b.classList.remove('active'));
+    ab.classList.add('active');
+    setAccent(ab.dataset.color);
+    savePrefs();
+  });
+
+  document.getElementById('tpEffects').addEventListener('click', e => {
+    const eb = e.target.closest('.tp-effect');
+    if (!eb) return;
+    const id = eb.dataset.effect;
+    eb.classList.toggle('active');
+    if (eb.classList.contains('active')) {
+      activeEffects.add(id);
+      effectCleanups[id] = startEffect(id);
+    } else {
+      activeEffects.delete(id);
+      if (effectCleanups[id]) { effectCleanups[id](); delete effectCleanups[id]; }
+      stopEffect(id);
+    }
+    savePrefs();
+  });
+}
+
+function setAccent(hex) {
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  const root = document.documentElement;
+  root.style.setProperty('--accent',        hex);
+  root.style.setProperty('--accent-dim',    `rgba(${r},${g},${b},0.08)`);
+  root.style.setProperty('--accent-border', `rgba(${r},${g},${b},0.25)`);
+  root.style.setProperty('--border-hover',  `rgba(${r},${g},${b},0.5)`);
+  document.querySelectorAll('.bg-glow').forEach(el => el.style.background = hex);
+}
+
+function startEffect(id) {
+  document.body.classList.add(`fx-${id}`);
+  if (id === 'glitch') return startGlitch();
+  if (id === 'matrix') return startRain();
+  return null;
+}
+
+function stopEffect(id) {
+  document.body.classList.remove(`fx-${id}`);
+  document.querySelectorAll(`.theme-canvas.fx-${id}`).forEach(c => c.remove());
+}
+
+
+/* ── Glitch animation ── */
+function startGlitch() {
+  const glyphs = '!<>-_\\/[]{}=+*^?#01__%&@';
+  const SELECTOR = '.nav-name, .feat-title, .project-title, .case-label span, .about-name, .projects-title';
+  let timer = null;
+  function scramble() {
+    const targets = document.querySelectorAll(SELECTOR);
+    targets.forEach(el => {
+      if (Math.random() > 0.55) return;
+      const orig = el.textContent;
+      el.textContent = orig.replace(/\S/g, () => glyphs[Math.floor(Math.random() * glyphs.length)]);
+      setTimeout(() => el.textContent = orig, 100);
+    });
+  }
+  timer = setInterval(scramble, 800);
+  return () => clearInterval(timer);
+}
+
+/* ── Rain animation ── */
+function startRain() {
+  const canvas = document.createElement('canvas');
+  canvas.className = 'theme-canvas fx-matrix';
+  canvas.style.cssText = 'position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.15;';
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  let raf, cols, drops;
+  // English, Malayalam, Hindi (Devanagari), Arabic
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789' +
+    'നമസ്കാരംകേരളംഭാഷമലയാളം' +
+    'नमस्तेहिन्दीभारतअक्षर' +
+    'أهلاًسلامعربيةحروف';
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    cols = Math.floor(canvas.width / 18);
+    drops = Array(cols).fill(1);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  function draw() {
+    ctx.fillStyle = 'rgba(0,0,0,0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#00ff41';
+    ctx.font = '15px monospace';
+    drops.forEach((y, i) => {
+      const ch = [...chars][Math.floor(Math.random() * [...chars].length)];
+      ctx.fillText(ch, i * 18, y * 18);
+      if (y * 18 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    });
+    raf = requestAnimationFrame(draw);
+  }
+  draw();
+  return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', resize); canvas.remove(); };
+}
+
+/* ── Glare animation ── */
+function startGlare() {
+  const el = document.createElement('div');
+  el.className = 'theme-canvas glare-sweep';
+  document.body.appendChild(el);
+  return () => el.remove();
+}
+
+
+
+

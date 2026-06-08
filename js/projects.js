@@ -19,6 +19,11 @@ const PROJECTS = [
       { label: "Steam", icon: "ti-brand-steam", url: "https://store.steampowered.com/app/2063120/Box_To_The_Beat_VR/" },
       { label: "Meta", icon: "ti-vr", url: "https://www.meta.com/en-gb/experiences/box-to-the-beat-vr/8848345028541262/" }
     ],
+    projectStats: [
+      { value: "6",  suffix: "", label: "platforms" },
+      { value: "3",  suffix: "", label: "stores" },
+      { value: "1",  suffix: "st", label: "PSVR2 · Middle East" }
+    ],
     description: {
       about: "Box To The Beat VR is a fast-paced rhythm boxing game built around indie artists across all genres. Players throw punches in sync with the music across fully immersive VR environments, with reactive visuals, leaderboards, world bosses, custom song support, and a progression system tied to a pet dragon. The game was self-published by Khosouf Studio and positions itself as a platform for independent musicians to reach players through interactive experiences.",
       contributions: "Effectively the sole programmer on the project alongside the studio director, responsible for the entire codebase from the ground up. This included all gameplay systems, UI, input handling, VFX pooling, and platform-specific integrations across six VR platforms: PS5 VR2, PC VR, Meta Quest, Meta Rift, HTC Vive, and PICO VR.\n\nShipping across six platforms simultaneously meant maintaining a platform-agnostic architecture as the baseline, then layering targeted patches and modifications where each platform diverged. No single platform was a blocker, as documentation, community forums, and systematic experimentation resolved every issue, but the cumulative scope of keeping six distinct input systems, certification requirements, and hardware constraints aligned in one codebase was the central engineering challenge of the project.\n\nPSVR2 required the deepest platform-specific work. This involved writing PlayStation engine-level code directly, implementing PSVR2-specific input handling and haptics, working within console save system size constraints, and conducting heavy performance optimisation across the board to satisfy Sony's thorough certification and certops process.\n\nBeyond platform work, Beat Saber custom map compatibility was implemented, allowing players to import and play community-created content, a significant feature that extended the game's content ecosystem well beyond its shipped song library.",
@@ -29,7 +34,7 @@ const PROJECTS = [
     youtube: ["4OaNlcSKZKY"]
   },
   {
-    id: "thepanicpit",
+    id: "thepanicpit", projectStats: [{ value: "50", suffix: "+", label: "weapons" }, { value: "5", suffix: "", label: "kingdoms" }, { value: "4", suffix: "", label: "platforms" }],
     title: "The Panic Pit",
     engine: "Unreal Engine 5",
     role: "Lead Developer",
@@ -53,7 +58,7 @@ const PROJECTS = [
     youtube: ["8KgG1VwAwMM"]
   },
   {
-    id: "glitchcore",
+    id: "glitchcore", projectStats: [{ value: "80", suffix: "+", label: "rooms" }, { value: "6", suffix: "", label: "PCG biomes" }, { value: "40", suffix: "+", label: "skills" }],
     title: "Glitchcore",
     engine: "Unreal Engine 5",
     role: "Lead Developer",
@@ -75,7 +80,7 @@ const PROJECTS = [
     youtube: ["XubvHykJX7A"]
   },
   {
-    id: "astralhound",
+    id: "astralhound", projectStats: [{ value: "18", suffix: "", label: "NPC characters" }, { value: "1", suffix: "", label: "enemy" }, { value: "100", suffix: "%", label: "level design" }],
     title: "Astral Hound VR",
     engine: "Unreal Engine 4",
     role: "Lead Developer",
@@ -96,7 +101,7 @@ const PROJECTS = [
     youtube: ["Mo5Ktu04NQI", "_1iYeGWFPSI"]
   },
   {
-    id: "oceanexplorer",
+    id: "oceanexplorer", projectStats: [{ value: "3", suffix: "", label: "UAE locations" }, { value: "0", suffix: "", label: "existing SDKs" }, { value: "1", suffix: "", label: "custom protocol" }],
     title: "Ocean Explorer VR",
     engine: "Unreal Engine 4",
     role: "Lead Developer",
@@ -120,7 +125,7 @@ const PROJECTS = [
     youtube: ["EcC186CG81E", "UpmxBURPKRo", "xGSDPbaH_Uo"]
   },
   {
-    id: "pixoul",
+    id: "pixoul", projectStats: [{ value: "10", suffix: "", label: "VR experiences" }, { value: "6", suffix: "", label: "months" }, { value: "11", suffix: "", label: "trailers produced" }],
     title: "Pixoul Gaming",
     engine: "Various",
     role: "QA Lead · Consultant",
@@ -417,13 +422,17 @@ const SITE = {
   formspree: "https://formspree.io/f/xjgzgnwz",
   bio: `നമസ്കാരം, नमस्ते, أهلاً, سلام!\n\nBased in Abu Dhabi, UAE, I have been a game developer for the past half decade. I helped ship the first PSVR2 game from the Middle East — Box To The Beat — alongside a range of VR, PC, and location-based titles.\n\nI have worked on commercial releases, client experiences for the likes of Discovery Channel, architectural VR for major KSA developments, and cultural showcases presented to Abu Dhabi's leadership.\n\nProgramming has been a passion of mine since high school. I work primarily in Unreal Engine 5, with a background in Unity, and I am proficient in C++, C#, and more.\n\nFeel free to browse the work, and get in touch if you'd like to talk.`,
   stats: [
-    { label: "Years",            value: "5+" },
-    { label: "Projects",         value: "18" },
-    { label: "Platforms",        value: "6"  },
-    { label: "Shipped titles",   value: "3"  },
-    { label: "Game jams",        value: "4"  },
-    { label: "Awards",           value: "5"  },
-    { label: "Countries shown",  value: "3"  },
-    { label: "First",            value: "PSVR2 · Middle East" }
+    { label: "Years",            value: "5+",  bar: 72 },
+    { label: "Projects",         value: "18",  bar: 90 },
+    { label: "Platforms",        value: "6",   bar: 60 },
+    { label: "Shipped titles",   value: "3",   bar: 50 },
+    { label: "Game jams",        value: "4",   bar: 40 },
+    { label: "Awards",           value: "5",   bar: 55 },
+    { label: "Countries shown",  value: "3",   bar: 30 },
+    { label: "First",            value: "PSVR2 · Middle East", bar: 0 }
+  ],
+  status: [
+    { text: "currently building", highlight: "The Panic Pit and Glitchcore" },
+    { text: "open to",            highlight: "new opportunities" }
   ]
 };

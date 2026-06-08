@@ -2,17 +2,17 @@
 
 /* ─── Variables ─────────────────────────────────────────────── */
 :root {
-  --bg:            #111118;
-  --surface:       #181824;
-  --card:          #1E1E2E;
-  --border:        rgba(255,255,255,0.08);
-  --border-hover:  rgba(0,229,255,0.35);
-  --accent:        #00E5FF;
-  --accent-dim:    rgba(0,229,255,0.08);
-  --accent-border: rgba(0,229,255,0.25);
-  --text-primary:  #F4F4FC;
-  --text-muted:    #C0C0D8;
-  --text-dim:      #8888A8;
+  --bg:            #000000;
+  --surface:       #0D0D0D;
+  --card:          #111111;
+  --border:        rgba(255,255,255,0.06);
+  --border-hover:  rgba(245,196,0,0.4);
+  --accent:        #F5C400;
+  --accent-dim:    rgba(245,196,0,0.08);
+  --accent-border: rgba(245,196,0,0.25);
+  --text-primary:  #FFFFFF;
+  --text-muted:    #AAAAAA;
+  --text-dim:      #444444;
   --font-display:  'Josefin Sans', sans-serif;
   --font-body:     'Montserrat', sans-serif;
   --radius:        6px;
@@ -62,7 +62,7 @@ body::before {
   justify-content: space-between;
   padding: 0 36px;
   border-bottom: 0.5px solid var(--border);
-  background: rgba(17,17,24,0.93);
+  background: rgba(0,0,0,0.95);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   z-index: 100;

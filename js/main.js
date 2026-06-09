@@ -140,8 +140,7 @@ function buildMobileMenu() {
     <a href="/" onclick="closeMobileMenu()">Home</a>
     <a href="/projects" onclick="closeMobileMenu()">Work</a>
     <a href="/about" onclick="closeMobileMenu()">About</a>
-    <a href="/contact" onclick="closeMobileMenu()">Contact</a>
-    <a href="cv.pdf" target="_blank" onclick="closeMobileMenu()">CV ↗</a>`;
+    <a href="/contact" onclick="closeMobileMenu()">Contact</a>`;
 }
 
 function toggleMobileMenu() {
@@ -1261,11 +1260,17 @@ function loadPrefs() {
 }
 
 function buildThemePanel() {
+  // Button goes into nav-right, before CV link
+  const navRight = document.querySelector('.nav-right');
   const btn = document.createElement('button');
   btn.id = 'themePanelBtn';
   btn.innerHTML = '<i class="ti ti-palette"></i>';
   btn.setAttribute('aria-label', 'Appearance');
-  document.body.appendChild(btn);
+  if (navRight) {
+    navRight.insertBefore(btn, navRight.firstChild);
+  } else {
+    document.body.appendChild(btn);
+  }
 
   const panel = document.createElement('div');
   panel.id = 'themePanel';
@@ -1428,7 +1433,3 @@ function startGlare() {
   document.body.appendChild(el);
   return () => el.remove();
 }
-
-
-
-

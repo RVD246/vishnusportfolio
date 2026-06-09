@@ -12,8 +12,8 @@
   --accent-dim:    rgba(245,196,0,0.08);
   --accent-border: rgba(245,196,0,0.25);
   --text-primary:  #FFFFFF;
-  --text-muted:    #AAAAAA;
-  --text-dim:      #777777;
+  --text-muted:    #c5c5c5;
+  --text-dim:      #b2b2b2;
   --font-display:  'Josefin Sans', sans-serif;
   --font-body:     'Montserrat', sans-serif;
   --radius:        6px;
@@ -1493,24 +1493,23 @@ body.fx-neon .feat-title {
 /* ─── Appearance panel UI ────────────────────────────────────── */
 
 #themePanelBtn {
-  position: fixed; bottom: 24px; right: 24px; z-index: 8000;
-  width: 42px; height: 42px; border-radius: 50%;
-  background: var(--surface); border: 0.5px solid var(--border);
   display: flex; align-items: center; justify-content: center;
-  color: var(--text-dim); font-size: 17px;
-  cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+  width: 32px; height: 32px; border-radius: var(--radius);
+  background: transparent; border: 0.5px solid var(--border);
+  color: var(--text-dim); font-size: 15px;
+  cursor: pointer; transition: color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
 }
 #themePanelBtn:hover, #themePanelBtn.active {
-  color: var(--accent); border-color: var(--accent-border); background: var(--card);
+  color: var(--accent); border-color: var(--accent-border);
 }
 
 #themePanel {
-  position: fixed; bottom: 76px; right: 24px; z-index: 8000;
-  width: 240px;
+  position: fixed; top: calc(var(--nav-h) + 8px); right: 16px; z-index: 8000;
+  width: 240px; max-width: calc(100vw - 32px);
   background: var(--surface); border: 0.5px solid var(--border);
   border-radius: var(--radius-lg); padding: 0;
-  opacity: 0; pointer-events: none; transform: translateY(8px);
+  opacity: 0; pointer-events: none; transform: translateY(-8px);
   transition: opacity 0.2s, transform 0.2s;
   box-shadow: 0 8px 32px rgba(0,0,0,0.5);
 }
